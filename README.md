@@ -8,7 +8,7 @@ The implementation connects fast SAGIN Flow Embedding (SAGINFE), stage-wise Per-
 
 [![Framework](figures/paper/framework_overview.png)](figures/paper/framework_overview.pdf)
 
-The dashed branch-and-price extension in this manuscript diagram is future work. It is not implemented.
+The dashed branch indicates a potential branch-and-price extension that is not implemented.
 
 ## Read the companion
 
