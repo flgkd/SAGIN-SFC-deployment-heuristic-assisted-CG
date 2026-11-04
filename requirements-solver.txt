@@ -1,0 +1,3 @@
+# Install only with a suitable Gurobi installation/license.
+# The manuscript reports 11.0.3; see docs/reproducibility.md for tested versions.
+gurobipy

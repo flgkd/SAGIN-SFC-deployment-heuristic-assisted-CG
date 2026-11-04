@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: >-
+  If you use the algorithms, implementations, or experimental results, please
+  cite the associated paper listed in references. Until an authoritative preprint
+  or publication record is available, the metadata below provides a repository citation.
+type: software
+title: SAGIN-SFC-deployment-heuristic-assisted-CG
+authors:
+  - name: SAGIN-SFC-deployment-heuristic-assisted-CG contributors
+repository-code: 'https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG'
+url: 'https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG'
+# Licensing scopes and third-party exceptions are defined in LICENSE-CONTENT and README.md.
+# Paper title and author order verified against the associated manuscript.
+# No preferred-citation until an authoritative preprint or publication record is verified.
+references:
+  - type: generic
+    title: >-
+      Scalable Full-Horizon SFC Deployment over Predictable SAGIN Topologies via Configurable Column Generation Framework
+    authors:
+      - family-names: Li
+        given-names: Hang
+      - family-names: Huang
+        given-names: Hao
+      - family-names: Xu
+        given-names: Yihu
+      - family-names: Kong
+        given-names: Zixuan
+      - family-names: Jin
+        given-names: Yanling
+    notes: Associated manuscript; publication metadata has not been verified.

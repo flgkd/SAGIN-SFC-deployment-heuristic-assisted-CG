@@ -1,0 +1,27 @@
+{
+  "component_s40": {
+    "path": "results/frozen/component_ablation_s40_v3/component_ablation_seed_level.csv",
+    "sha256": "0af6d245761b3854769c9dab6518d6edebf8e50e613e8a255e7a1306f154361f",
+    "rows": 180
+  },
+  "component_s50": {
+    "path": "results/frozen/component_ablation_s50_v3_final/canonical_component_ablation_s50_180.csv",
+    "sha256": "fe8815b1e3a39aaad19f31b1ac19c4f57780d9f961a62b69d1ef9d1ffcf4d197",
+    "rows": 180
+  },
+  "deadline": {
+    "path": "outputs/deadline_sensitivity_s40_v3_120_36b9632/deadline_sensitivity_seed_level.csv",
+    "sha256": "13a7accdf6ca6dd74533a4941ba7577a2b2a181e7d3fabb3733cfdf9842aaf7e",
+    "rows": 120
+  },
+  "temporal": {
+    "path": "outputs/temporal_scalability_v3_160_0caacc9/temporal_scalability_seed_level.csv",
+    "sha256": "8a3638787370bf32fb26a0d4005e933e9c0b1f3bbb2fc8c53f32d5b1b845a689",
+    "rows": 160
+  },
+  "parallel": {
+    "path": "outputs/parallel_pricing_v3_60_4796b5b/parallel_pricing_seed_level.csv",
+    "sha256": "c5fef44dea559686c8049900d08a59e51310c2f441912e1ae4207d381758a0d5",
+    "rows": 60
+  }
+}

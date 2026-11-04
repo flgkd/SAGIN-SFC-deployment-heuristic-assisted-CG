@@ -1,0 +1,91 @@
+{
+  "name": "scaling_cg_budget_calibration_v3",
+  "description": "Non-formal V3 Scaling CG-iteration budget calibration for the fixed S30 Medium seed-0 DWCG-SAGINFE instance.",
+  "version": "v3",
+  "plan_kind": "scaling_runtime_pilot",
+  "smoke": false,
+  "integration_only": true,
+  "provisional_limits": true,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S30"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [0],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S30": 120
+    },
+    "loads": [
+      {"label": "Medium", "demand_multiplier": 0.6}
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_saginfe",
+        "variant_id": "CG8",
+        "display_name": "DWCG-SAGINFE-CG8",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 8,
+        "max_exact_pricing_calls_by_scale": {
+          "S30": 1080
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_ratio": 0.1
+      },
+      {
+        "algorithm": "dwcg_saginfe",
+        "variant_id": "CG12",
+        "display_name": "DWCG-SAGINFE-CG12",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S30": 1560
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_ratio": 0.1
+      },
+      {
+        "algorithm": "dwcg_saginfe",
+        "variant_id": "CG16",
+        "display_name": "DWCG-SAGINFE-CG16",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 16,
+        "max_exact_pricing_calls_by_scale": {
+          "S30": 2040
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_ratio": 0.1
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 3,
+      "recommended_output_dir": "outputs/scaling_cg_budget_calibration_v3",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "exact_pricing_safety_rule": "max_exact_pricing_calls_by_scale = F * (max_cg_iterations + 1)",
+      "calibration_not_formal_results": true
+    }
+  }
+}

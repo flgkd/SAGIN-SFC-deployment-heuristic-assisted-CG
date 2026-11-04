@@ -1,0 +1,57 @@
+{
+  "name": "scale_load_master_preflight_s50_high_v3",
+  "description": "Non-formal V3 scale-load master preflight B: S50 High seed-0 DWCG-SAGINFE budget sanity under the current protocol.",
+  "version": "v3",
+  "plan_kind": "scaling_runtime_pilot",
+  "smoke": false,
+  "integration_only": true,
+  "provisional_limits": true,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S50"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [0],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S50": 200
+    },
+    "loads": [
+      {"label": "High", "demand_multiplier": 0.8}
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_saginfe",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 1,
+      "recommended_output_dir": "outputs/scale_load_master_preflight_s50_high_v3",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "preflight_not_formal_results": true,
+      "preflight_pass_rule": "Passes if execution completes without an overall runtime wall, the independent 300 s final-RMP cap is correctly recorded, metadata is internally consistent, and no legacy CG20 or RMP180 setting appears."
+    }
+  }
+}

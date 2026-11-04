@@ -1,0 +1,28 @@
+{
+  "name": "formal_dwcg_repro_smoke_v1",
+  "description": "DWCG reproducibility smoke plan for integration only; not for paper statistics.",
+  "version": "v1",
+  "plan_kind": "formal_smoke",
+  "smoke": true,
+  "provisional_limits": true,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S20"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [999],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "F=4N",
+    "loads": [
+      {"label": "Medium", "demand_multiplier": 0.6},
+      {"label": "High", "demand_multiplier": 0.8}
+    ],
+    "algorithms": [
+      {"algorithm": "dwcg_pure", "enabled": true, "time_limit": 180.0, "threads": 1, "mip_gap": 0.0, "use_saginfe_initialization": false, "deterministic_mode": true, "pricing_worker_count": 1, "max_cg_iterations": 4, "max_exact_pricing_calls": 240, "hard_time_limit_seconds": 180.0},
+      {"algorithm": "dwcg_saginfe", "enabled": true, "time_limit": 180.0, "threads": 1, "mip_gap": 0.0, "use_saginfe_initialization": true, "deterministic_mode": true, "pricing_worker_count": 1, "max_cg_iterations": 4, "max_exact_pricing_calls": 240, "hard_time_limit_seconds": 180.0}
+    ],
+    "output_settings": {"expected_runs": 4, "integration_only": true}
+  }
+}

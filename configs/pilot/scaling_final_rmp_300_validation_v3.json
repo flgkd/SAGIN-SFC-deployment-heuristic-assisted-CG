@@ -1,0 +1,73 @@
+{
+  "name": "scaling_final_rmp_300_validation_v3",
+  "description": "Non-formal one-run V3 Scaling validation isolating a 300-second final restricted-RMP recovery cap for the S50 High seed-0 DWCG-Pure CG12 instance.",
+  "version": "v3",
+  "plan_kind": "scaling_runtime_pilot",
+  "smoke": false,
+  "integration_only": true,
+  "provisional_limits": true,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S50"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [0],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S50": 200
+    },
+    "loads": [
+      {"label": "High", "demand_multiplier": 0.8}
+    ],
+    "run_matrix": [
+      {
+        "scale": "S50",
+        "load_label": "High",
+        "formal_seed": 0,
+        "algorithm": "dwcg_pure"
+      }
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_pure",
+        "display_name": "DWCG-Pure-CG12-FinalRMP300",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": false,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_ratio": 0.1,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 1,
+      "recommended_output_dir": "outputs/scaling_final_rmp_300_validation_v3",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "max_cg_iterations": 12,
+      "exact_pricing_safety_rule": "max_exact_pricing_calls_by_scale = F * (max_cg_iterations + 1)",
+      "final_rmp_recovery_policy": "best feasible restricted-RMP incumbent within a 300-second bounded final-RMP recovery budget when final RMP reaches TIME_LIMIT",
+      "final_rmp_time_cap_seconds": 300.0,
+      "final_rmp_reserve_ratio": 0.1,
+      "post_run_decision_rule": {
+        "case_a": "If FinalRMP300 still accepts 153 flows and no acceptance improvement occurs after approximately 180 s, 180 s happened to be enough for this seed, but 300 s provides useful safety margin and becomes the preferred candidate cap.",
+        "case_b": "If FinalRMP300 improves from 153 to 154+ flows between 180 and 300 s, 180 s was scientifically too aggressive and 300 s is justified.",
+        "case_c": "If important acceptance improvements are still occurring close to 300 s, do not freeze 300 s yet and reconsider the final-RMP budget policy.",
+        "case_d": "If 300 s reaches restricted-pool OPTIMAL substantially before the cap, 300 s is comfortably sufficient for this representative hard instance."
+      },
+      "final_rmp_300_validation_not_formal_results": true
+    }
+  }
+}

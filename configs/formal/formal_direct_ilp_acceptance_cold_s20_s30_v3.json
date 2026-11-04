@@ -1,0 +1,89 @@
+{
+  "name": "formal_direct_ilp_acceptance_cold_s20_s30_v3",
+  "description": "Formal S20/S30 cold Direct ILP acceptance-only campaign paired against the frozen four-algorithm V3 baseline. Direct ILP only; no heuristic or CG reruns.",
+  "version": "v3",
+  "plan_kind": "scaling_formal",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": true,
+  "scenario": {
+    "scales": [
+      "S20",
+      "S30"
+    ],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "loads": [
+      {
+        "label": "Low",
+        "demand_multiplier": 0.4
+      },
+      {
+        "label": "Medium",
+        "demand_multiplier": 0.6
+      },
+      {
+        "label": "High",
+        "demand_multiplier": 0.8
+      }
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S20": 80,
+      "S30": 120
+    },
+    "scenario_pairs": [],
+    "run_matrix": [],
+    "algorithms": [
+      {
+        "algorithm": "direct_ilp_acceptance_cold",
+        "display_name": "Direct ILP (Cold)",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "direct_ilp_warm_start": false,
+        "use_saginfe_initialization": false,
+        "deterministic_mode": true,
+        "algorithm_seed": null,
+        "hard_time_limit_seconds": null,
+        "disable_hard_time_limit": true
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 60,
+      "expected_s20_runs": 30,
+      "expected_s30_runs": 30,
+      "objective_mode": "admission_only",
+      "physical_cost_in_objective": false,
+      "cold_start": true,
+      "mip_start_mode": "none",
+      "external_mip_start_used": false,
+      "initialization_cache_reused": false,
+      "hard_time_limit_scope": "end_to_end_algorithm_runtime_seconds",
+      "hard_time_limit_seconds": null,
+      "solver_threads": 1,
+      "solver_seed": 0,
+      "mip_gap": 0.0,
+      "mip_gap_abs": 0.0,
+      "paired_baseline_dir": "outputs/merged_formal_v3_480_dwcg_saginfe_pro_970415f",
+      "recommended_output_dir_pattern": "formal_outputs/direct_ilp_acceptance_cold_s20_s30_v3_<implementation-short-commit>"
+    }
+  }
+}

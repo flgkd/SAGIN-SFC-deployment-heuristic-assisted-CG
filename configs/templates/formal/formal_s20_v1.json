@@ -1,0 +1,31 @@
+{
+  "name": "formal_s20_v1",
+  "description": "Core S20 formal benchmark plan with all four algorithms.",
+  "version": "v1",
+  "plan_kind": "core_formal",
+  "smoke": false,
+  "provisional_limits": true,
+  "include_in_core_ranking": true,
+  "scenario": {
+    "scales": ["S20"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "F=4N",
+    "loads": [
+      {"label": "Low", "demand_multiplier": 0.4},
+      {"label": "Medium", "demand_multiplier": 0.6},
+      {"label": "High", "demand_multiplier": 0.8}
+    ],
+    "algorithms": [
+      {"algorithm": "direct_ilp", "enabled": true, "time_limit": 600.0, "threads": 1, "mip_gap": 0.0, "direct_ilp_warm_start": true},
+      {"algorithm": "saginfe", "enabled": true, "time_limit": null, "threads": 1, "mip_gap": null},
+      {"algorithm": "dwcg_pure", "enabled": true, "time_limit": 600.0, "threads": 1, "mip_gap": 0.0, "use_saginfe_initialization": false, "deterministic_mode": true, "pricing_worker_count": 1, "max_cg_iterations": 8, "max_exact_pricing_calls": 640, "hard_time_limit_seconds": 600.0},
+      {"algorithm": "dwcg_saginfe", "enabled": true, "time_limit": 600.0, "threads": 1, "mip_gap": 0.0, "use_saginfe_initialization": true, "deterministic_mode": true, "pricing_worker_count": 1, "max_cg_iterations": 8, "max_exact_pricing_calls": 640, "hard_time_limit_seconds": 600.0}
+    ],
+    "output_settings": {"expected_runs": 120}
+  }
+}

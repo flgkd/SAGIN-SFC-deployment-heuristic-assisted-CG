@@ -1,0 +1,96 @@
+{
+  "name": "formal_dwcg_saginfe_pro_v3",
+  "description": "Authoritative selected 120-run V3 formal extension for DWCG-SAGINFE-PRO after the diagnostic pilot selected dwcg_saginfe_pro. This campaign is separate from the frozen 360-record three-algorithm baseline.",
+  "version": "v3",
+  "plan_kind": "scaling_formal",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": true,
+  "scenario": {
+    "scales": [
+      "S20",
+      "S30",
+      "S40",
+      "S50"
+    ],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S20": 80,
+      "S30": 120,
+      "S40": 160,
+      "S50": 200
+    },
+    "loads": [
+      {
+        "label": "Low",
+        "demand_multiplier": 0.4
+      },
+      {
+        "label": "Medium",
+        "demand_multiplier": 0.6
+      },
+      {
+        "label": "High",
+        "demand_multiplier": 0.8
+      }
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_saginfe_pro",
+        "enabled": true,
+        "display_name": "DWCG-SAGINFE-PRO",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 120,
+      "selected_algorithm": "dwcg_saginfe_pro",
+      "selected_display_name": "DWCG-SAGINFE-PRO",
+      "selected_full_name": "DWCG-SAGINFE-PRO",
+      "recommended_output_dir_pattern": "formal_outputs/formal_dwcg_saginfe_pro_v3_<implementation-short-commit>",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "max_cg_iterations": 12,
+      "hard_time_limit_seconds": null,
+      "final_rmp_reserve_seconds": 300.0,
+      "final_rmp_time_cap_seconds": 300.0,
+      "final_rmp_mip_gap": 0.0001,
+      "exact_pricing_safety_rule": "max_exact_pricing_calls_by_scale = F * (max_cg_iterations + 1)",
+      "separate_from_frozen_360_campaign": true
+    }
+  }
+}

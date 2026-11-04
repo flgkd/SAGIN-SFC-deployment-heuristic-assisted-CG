@@ -1,0 +1,75 @@
+{
+  "name": "direct_ilp_acceptance_cold_s20_medium_unlimited_v3",
+  "description": "Supplementary S20 Medium cold Direct ILP acceptance-only certification campaign.",
+  "version": "v3",
+  "plan_kind": "scaling_formal",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": [
+      "S20"
+    ],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      6
+    ],
+    "loads": [
+      {
+        "label": "Medium",
+        "demand_multiplier": 0.6
+      }
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S20": 80
+    },
+    "algorithms": [
+      {
+        "algorithm": "direct_ilp_acceptance_cold",
+        "display_name_override": "Direct ILP (Cold)",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": false,
+        "direct_ilp_warm_start": false,
+        "deterministic_mode": true,
+        "algorithm_seed": null,
+        "pricing_worker_count": 1,
+        "hard_time_limit_seconds": null,
+        "disable_hard_time_limit": true
+      }
+    ],
+    "output_settings": {
+      "cold_start": true,
+      "external_mip_start_used": false,
+      "mip_start_mode": "none",
+      "initialization_cache_reused": false,
+      "objective_mode": "admission_only",
+      "physical_cost_in_objective": false,
+      "solver_threads": 1,
+      "solver_seed": 0,
+      "mip_gap": 0.0,
+      "mip_gap_abs": 0.0,
+      "hard_time_limit_enabled": false,
+      "hard_time_limit_scope": "end_to_end_algorithm_runtime_seconds",
+      "hard_time_limit_seconds": null,
+      "source_frozen_campaign": "results/frozen/direct_ilp_acceptance_cold_s20_s30_d047966/",
+      "source_raw_formal_output": "formal_outputs/direct_ilp_acceptance_cold_s20_s30_v3_d047966/",
+      "source_frozen_tag": "exact-anchor-v3-final",
+      "source_experiment_commit": "d0479667a6119073801e85571fb42cad3deaa557",
+      "recommended_output_dir_pattern": "formal_outputs/direct_ilp_acceptance_cold_s20_medium_unlimited_v3_<implementation-short-commit>"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "name": "formal_same_flow_temporal_control_v3",
+  "description": "V3 Same-flow Temporal Control: S40 Medium Balanced T6/T8/T10/T12 with canonical T12 topology prefixes and fixed T6 complete flow bundle.",
+  "version": "v3",
+  "plan_kind": "formal_same_flow_temporal_control",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": [
+      "S40"
+    ],
+    "time_slots": 8,
+    "time_slot_values": [
+      6,
+      8,
+      10,
+      12
+    ],
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "same_complete_T6_flow_bundle_across_T",
+    "scale_flow_counts": {
+      "S40": 160
+    },
+    "loads": [
+      {
+        "label": "Medium",
+        "demand_multiplier": 0.6
+      }
+    ],
+    "algorithms": [
+      {
+        "algorithm": "saginfe",
+        "enabled": true,
+        "display_name": "SAGINFE",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": null,
+        "hard_time_limit_seconds": null
+      },
+      {
+        "algorithm": "dwcg_pure",
+        "enabled": true,
+        "display_name": "DWCG-Pure",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": false,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      },
+      {
+        "algorithm": "dwcg_saginfe_pro",
+        "enabled": true,
+        "display_name": "DWCG-SAGINFE-PRO",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "expected_total_evidence_rows": 120,
+      "expected_new_formal_rows": 90,
+      "expected_reused_rows": 30,
+      "reused_time_slots": [
+        6
+      ],
+      "new_time_slots": [
+        8,
+        10,
+        12
+      ],
+      "strict_same_flow_temporal_control": true,
+      "topology_anchor_time_slots": 12,
+      "flow_anchor_time_slots": 6,
+      "supported_time_slots": [
+        6,
+        8,
+        10,
+        12
+      ],
+      "request_windows_fixed_across_time_slots": true,
+      "arrival_deadline_remapping_after_T6": false,
+      "reuse_source_tag": "temporal-scalability-v3-final",
+      "reuse_source_commit": "78d6e3343ac739eb3e06228b53b48a4d72f56b3a",
+      "reuse_source_path": "outputs/temporal_scalability_v3_160_0caacc9/temporal_scalability_runs.jsonl",
+      "recommended_output_dir_pattern": "formal_outputs/same_flow_temporal_control_v3_<short_plan_commit>",
+      "recommended_merged_output_dir_pattern": "outputs/same_flow_temporal_control_v3_120_<short_plan_commit>",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "max_cg_iterations": 12,
+      "hard_time_limit_seconds": null,
+      "max_exact_pricing_calls_by_scale": {
+        "S20": 1040,
+        "S30": 1560,
+        "S40": 2080,
+        "S50": 2600
+      },
+      "final_rmp_reserve_seconds": 300.0,
+      "final_rmp_time_cap_seconds": 300.0,
+      "pilot_records_admissible_as_formal_evidence": false,
+      "v2_experimental_data_used": 0
+    }
+  }
+}

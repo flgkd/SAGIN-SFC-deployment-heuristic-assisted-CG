@@ -1,0 +1,6 @@
+# Core generation, SAGINFE and validation use the Python standard library.
+# Unpinned direct dependencies: this is not a historical environment lockfile.
+matplotlib
+numpy
+pandas
+pytest

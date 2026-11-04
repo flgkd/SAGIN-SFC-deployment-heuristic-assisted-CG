@@ -1,0 +1,26 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+SPDX-License-Identifier: CC-BY-4.0
+
+The original mathematical model, algorithm, experimental, and other Markdown
+documentation, experimental figures, and mathematical and architectural diagrams
+in this repository are licensed under CC BY 4.0, to the extent the contributors
+hold the applicable rights. These materials are not covered by the MIT License.
+
+Official license terms: https://creativecommons.org/licenses/by/4.0/legalcode
+License overview: https://creativecommons.org/licenses/by/4.0/
+
+Attribution: SAGIN-SFC-deployment-heuristic-assisted-CG contributors (2026).
+Source: https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG
+Retain any more specific creator credits and rights notices supplied with a work.
+
+Third-party materials remain subject to their respective licenses. Illustrative
+icons or other third-party elements in figures, including the framework overview
+(figures/paper/framework_overview.pdf and its PNG preview), are excluded from
+this grant unless separately identified as covered. Their provenance and reuse
+permissions have not been established in the repository.
+
+No exclusive copyright is claimed over any AI-generated elements that are not
+protected by applicable law. This license grants only rights held by contributors.
+
+Code, algorithm implementations, executable and plotting scripts, tests, examples,
+and executable configurations are licensed separately under LICENSE (MIT).

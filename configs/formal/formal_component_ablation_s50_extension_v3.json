@@ -1,0 +1,157 @@
+{
+  "name": "s50_component_ablation_extension_v3",
+  "description": "V3 S50 component-ablation extension plan for Warm, DWCG-Pure-HP, and PRO-no-PFE. Reuses frozen S50 Main Scaling rows for DWCG-Pure, DWCG-SAGINFE, and DWCG-SAGINFE-PRO by exact instance fingerprint pairing.",
+  "version": "v3",
+  "plan_kind": "formal_ablation",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": [
+      "S50"
+    ],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S50": 200
+    },
+    "loads": [
+      {
+        "label": "Low",
+        "demand_multiplier": 0.4
+      },
+      {
+        "label": "Medium",
+        "demand_multiplier": 0.6
+      },
+      {
+        "label": "High",
+        "demand_multiplier": 0.8
+      }
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_warm",
+        "enabled": true,
+        "display_name": "Warm",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "pricing_strategy": "hybrid",
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300,
+        "final_rmp_time_cap_seconds": 300
+      },
+      {
+        "algorithm": "dwcg_pure_hp",
+        "enabled": true,
+        "display_name": "DWCG-Pure-HP",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0,
+        "use_saginfe_initialization": false,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "pricing_strategy": "heuristic_then_exact",
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300,
+        "final_rmp_time_cap_seconds": 300
+      },
+      {
+        "algorithm": "dwcg_saginfe_pro_no_pfe",
+        "enabled": true,
+        "display_name": "PRO-no-PFE",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "pricing_strategy": "hybrid",
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300,
+        "final_rmp_time_cap_seconds": 300
+      }
+    ],
+    "output_settings": {
+      "expected_new_runs": 90,
+      "expected_reused_main_scaling_rows": 90,
+      "expected_final_rows": 180,
+      "formal_paper_evidence": true,
+      "component_ablation_v3_only": true,
+      "v2_experimental_data_used": 0,
+      "recommended_new_output_dir": "outputs/component_ablation_s50_extension_v3_new_90",
+      "recommended_final_output_dir": "outputs/component_ablation_s50_extension_v3_180_merged",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "max_cg_iterations": 12,
+      "hard_time_limit_seconds": null,
+      "exact_pricing_safety_rule": "max_exact_pricing_calls_by_scale = F * (max_cg_iterations + 1); S50 = 200 * 13 = 2600",
+      "final_rmp_reserve_seconds": 300,
+      "final_rmp_time_cap_seconds": 300,
+      "immutable_instance_pairing_policy": "All six variants for fixed S50/load/seed must match topology, base-flow, and full-instance fingerprints from the authoritative Main Scaling S50 instance.",
+      "frozen_merged_campaign": "outputs/merged_formal_v3_480_dwcg_saginfe_pro_970415f",
+      "frozen_reusable_algorithms": [
+        "dwcg_pure",
+        "dwcg_saginfe",
+        "dwcg_saginfe_pro"
+      ],
+      "new_formal_algorithms": [
+        "dwcg_warm",
+        "dwcg_pure_hp",
+        "dwcg_saginfe_pro_no_pfe"
+      ],
+      "six_variant_display_order": [
+        "dwcg_pure",
+        "dwcg_warm",
+        "dwcg_pure_hp",
+        "dwcg_saginfe",
+        "dwcg_saginfe_pro_no_pfe",
+        "dwcg_saginfe_pro"
+      ],
+      "pilot_records_admissible_as_formal_evidence": false
+    }
+  }
+}

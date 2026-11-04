@@ -1,0 +1,304 @@
+{
+  "name": "formal_parallel_pricing_v3",
+  "description": "V3 parallel pricing speedup study: DWCG-Pure and DWCG-SAGINFE-PRO on S40 High W1/W2/W4 with within-algorithm equivalent logical pricing work.",
+  "version": "v3",
+  "plan_kind": "formal_parallel_pricing",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": [
+      "S40"
+    ],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S40": 160
+    },
+    "loads": [
+      {
+        "label": "High",
+        "demand_multiplier": 0.8
+      }
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_pure",
+        "variant_id": "W1",
+        "display_name": "DWCG-Pure-Parallel-W1",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": false,
+        "pricing_strategy": "hybrid",
+        "hybrid_switch_iteration": 5,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      },
+      {
+        "algorithm": "dwcg_pure",
+        "variant_id": "W2",
+        "display_name": "DWCG-Pure-Parallel-W2",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": false,
+        "pricing_strategy": "hybrid",
+        "hybrid_switch_iteration": 5,
+        "deterministic_mode": true,
+        "pricing_worker_count": 2,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      },
+      {
+        "algorithm": "dwcg_pure",
+        "variant_id": "W4",
+        "display_name": "DWCG-Pure-Parallel-W4",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": false,
+        "pricing_strategy": "hybrid",
+        "hybrid_switch_iteration": 5,
+        "deterministic_mode": true,
+        "pricing_worker_count": 4,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      },
+      {
+        "algorithm": "dwcg_saginfe_pro",
+        "variant_id": "W1",
+        "display_name": "DWCG-SAGINFE-PRO-Parallel-W1",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "pricing_strategy": "hybrid",
+        "hybrid_switch_iteration": 5,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      },
+      {
+        "algorithm": "dwcg_saginfe_pro",
+        "variant_id": "W2",
+        "display_name": "DWCG-SAGINFE-PRO-Parallel-W2",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "pricing_strategy": "hybrid",
+        "hybrid_switch_iteration": 5,
+        "deterministic_mode": true,
+        "pricing_worker_count": 2,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      },
+      {
+        "algorithm": "dwcg_saginfe_pro",
+        "variant_id": "W4",
+        "display_name": "DWCG-SAGINFE-PRO-Parallel-W4",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "pricing_strategy": "hybrid",
+        "hybrid_switch_iteration": 5,
+        "deterministic_mode": true,
+        "pricing_worker_count": 4,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "expected_total_evidence_rows": 60,
+      "expected_new_formal_rows": 60,
+      "expected_reused_rows": 0,
+      "algorithm_ids": [
+        "dwcg_pure",
+        "dwcg_saginfe_pro"
+      ],
+      "worker_variant_ids": [
+        "W1",
+        "W2",
+        "W4"
+      ],
+      "worker_counts": [
+        1,
+        2,
+        4
+      ],
+      "formal_paper_evidence": true,
+      "parallel_pricing_v3": true,
+      "recommended_output_dir_pattern": "formal_outputs/parallel_pricing_v3_<PLAN_COMMIT_SHORTSHA>",
+      "recommended_merged_output_dir_pattern": "outputs/parallel_pricing_v3_60_<PLAN_COMMIT_SHORTSHA>",
+      "reuse_count": 0,
+      "pilot_records_admissible_as_formal_evidence": false,
+      "v2_numerical_reuse_count": 0,
+      "primary_metric": "end_to_end_wall_clock_runtime",
+      "secondary_metric": "pricing_wall_clock_runtime",
+      "equivalence_contract": {
+        "required_exact_equal_within_algorithm": [
+          "scale",
+          "time_slots",
+          "load_label",
+          "formal_seed",
+          "algorithm",
+          "pricing_strategy",
+          "hybrid_switch_iteration",
+          "configured_max_cg_iterations",
+          "configured_max_exact_pricing_calls",
+          "configured_hard_time_limit_seconds",
+          "configured_final_rmp_reserve_seconds",
+          "configured_final_rmp_time_cap_seconds",
+          "deterministic_mode",
+          "topology_fingerprint",
+          "base_flow_fingerprint",
+          "full_instance_fingerprint",
+          "logical_pricing_task_count",
+          "exact_pricing_budget_used",
+          "exact_pricing_call_count",
+          "deterministic_work_budget_exhausted"
+        ],
+        "required_exact_equal_across_algorithms": [
+          "scale",
+          "time_slots",
+          "load_label",
+          "formal_seed",
+          "topology_fingerprint",
+          "base_flow_fingerprint",
+          "full_instance_fingerprint"
+        ],
+        "not_required_equal_across_algorithms": [
+          "logical_pricing_task_count",
+          "exact_pricing_budget_used",
+          "exact_pricing_call_count",
+          "generated_column_count",
+          "inserted_column_count",
+          "final_column_pool_size",
+          "accepted_flow_count",
+          "termination_status"
+        ],
+        "diagnostically_similar": [
+          "generated_column_count",
+          "inserted_column_count",
+          "final_column_pool_size",
+          "accepted_flow_count",
+          "termination_status",
+          "final_integer_rmp_status"
+        ],
+        "allowed_to_differ": [
+          "total_end_to_end_runtime_seconds",
+          "total_pricing_runtime",
+          "exact_pricing_runtime",
+          "final_rmp_runtime_seconds",
+          "final_ordered_column_pool_fingerprint"
+        ]
+      },
+      "speedup_policy": {
+        "paired_seed_level_first": true,
+        "e2e_speedup": "runtime_W1 / runtime_Wk",
+        "pricing_speedup": "pricing_runtime_W1 / pricing_runtime_Wk",
+        "pricing_parallel_efficiency": "pricing_speedup / k",
+        "aggregate_rule": "summarize paired seed-level speedups; do not use ratios of aggregate means"
+      },
+      "censoring_policy": {
+        "hard_wall_seconds": null,
+        "uncensored_pair": "ordinary speedup eligible",
+        "either_side_censored": "Exclude pairs with explicit interruption metadata.",
+        "deterministic_work_budget_exhaustion_is_censoring": false
+      },
+      "parallel_scope": {
+        "parallelized": [
+          "primary hybrid per-flow pricing subproblems"
+        ],
+        "not_parallelized": [
+          "SAGINFE warm initialization",
+          "RMP",
+          "final_integer_RMP",
+          "selective_PFE",
+          "repair_orchestration",
+          "validation",
+          "path_reconstruction",
+          "column_pool_insertion"
+        ],
+        "process_pool_lifetime": "created per pricing phase",
+        "pricing_worker_threads": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "direct_ilp_acceptance_cold_smoke_easy_v3",
+  "description": "Integration-only Direct ILP cold-start smoke A. Not for paper statistics and not valid as formal campaign input.",
+  "version": "v3",
+  "plan_kind": "spotcheck",
+  "smoke": false,
+  "integration_only": true,
+  "provisional_limits": true,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S20"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [0],
+    "loads": [
+      {"label": "Low", "demand_multiplier": 0.4}
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {"S20": 80},
+    "scenario_pairs": [],
+    "run_matrix": [],
+    "algorithms": [
+      {
+        "algorithm": "direct_ilp_acceptance_cold",
+        "display_name": "Direct ILP (Cold)",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "direct_ilp_warm_start": false,
+        "use_saginfe_initialization": false,
+        "deterministic_mode": true,
+        "hard_time_limit_seconds": null
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 1,
+      "integration_only": true,
+      "not_for_paper_statistics": true,
+      "not_valid_as_formal_campaign_input": true,
+      "objective_mode": "admission_only",
+      "physical_cost_in_objective": false,
+      "cold_start": true,
+      "mip_start_mode": "none",
+      "external_mip_start_used": false,
+      "initialization_cache_reused": false,
+      "hard_time_limit_seconds": null,
+      "solver_threads": 1,
+      "solver_seed": 0,
+      "mip_gap": 0.0,
+      "mip_gap_abs": 0.0,
+      "paired_baseline_dir": "outputs/merged_formal_v3_480_dwcg_saginfe_pro_970415f",
+      "recommended_output_dir_pattern": "pilot_outputs/direct_ilp_cold_smoke_easy_<implementation-short-commit>"
+    }
+  }
+}

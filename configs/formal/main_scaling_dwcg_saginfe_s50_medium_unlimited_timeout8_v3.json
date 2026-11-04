@@ -1,0 +1,77 @@
+{
+  "name": "main_scaling_dwcg_saginfe_s50_medium_unlimited_timeout8_v3",
+  "description": "S50 Medium HFP supplementary campaign for seeds 0, 1, 2, 3, 4, 5, 7 and 9. Uses the scale-load master topology, requests and intrinsic algorithm settings.",
+  "version": "v3",
+  "plan_kind": "scaling_formal",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S50"],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [0, 1, 2, 3, 4, 5, 7, 9],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S50": 200
+    },
+    "loads": [
+      {"label": "Medium", "demand_multiplier": 0.6}
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_saginfe",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "direct_ilp_warm_start": false,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "hard_time_limit_seconds": null,
+        "disable_hard_time_limit": true,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "expected_runs": 8,
+      "supplementary_campaign": true,
+      "source_campaign": "formal_scale_load_master_v3_407efbf",
+      "source_config": "configs/formal/formal_scale_load_master_v3.json",
+      "source_frozen_directory": "results/frozen/formal_scale_load_master_v3_407efbf",
+      "target_algorithm": "dwcg_saginfe",
+      "target_scale": "S50",
+      "target_load": "Medium",
+      "target_seeds": [0, 1, 2, 3, 4, 5, 7, 9],
+      "cross_seed_execution": "serial",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "max_cg_iterations": 12,
+      "max_exact_pricing_calls_by_scale": {
+        "S20": 1040,
+        "S30": 1560,
+        "S40": 2080,
+        "S50": 2600
+      },
+      "hard_time_limit_enabled": false,
+      "hard_time_limit_seconds": null,
+      "final_rmp_reserve_seconds": 300.0,
+      "final_rmp_time_cap_seconds": 300.0,
+      "recommended_output_dir_pattern": "formal_outputs/main_scaling_dwcg_saginfe_s50_medium_unlimited_timeout8_v3_<preparation-short-commit>"
+    }
+  }
+}

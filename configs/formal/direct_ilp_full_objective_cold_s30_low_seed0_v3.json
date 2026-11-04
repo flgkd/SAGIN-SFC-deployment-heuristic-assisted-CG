@@ -1,0 +1,76 @@
+{
+  "name": "direct_ilp_full_objective_cold_s30_low_seed0_v3",
+  "description": "Pilot S30 Low seed-0 Direct ILP campaign for the full original V3 scalarized objective. Campaign identity: direct_ilp_full_objective_cold. Scientific algorithm remains direct_ilp.",
+  "version": "v3",
+  "plan_kind": "scaling_formal",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": [
+      "S30"
+    ],
+    "time_slots": 8,
+    "dynamic_topology": true,
+    "formal_seeds": [
+      0
+    ],
+    "loads": [
+      {
+        "label": "Low",
+        "demand_multiplier": 0.4
+      }
+    ],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "explicit_F_equals_4N",
+    "scale_flow_counts": {
+      "S30": 120
+    },
+    "scenario_pairs": [],
+    "run_matrix": [],
+    "algorithms": [
+      {
+        "algorithm": "direct_ilp",
+        "display_name": "Direct ILP (Full Objective Cold)",
+        "enabled": true,
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "mip_gap_abs": 0.0,
+        "gurobi_seed": 0,
+        "use_saginfe_initialization": false,
+        "direct_ilp_warm_start": false,
+        "deterministic_mode": true,
+        "algorithm_seed": null,
+        "pricing_worker_count": 1,
+        "hard_time_limit_seconds": null
+      }
+    ],
+    "output_settings": {
+      "campaign": "direct_ilp_full_objective_cold",
+      "pilot_group": "S30 Low seed0",
+      "expected_runs": 1,
+      "objective_mode": "scalarized",
+      "objective_description": "maximize 2*A - C, where C = 0.5*C_node + 0.5*C_link",
+      "acceptance_reward": 2.0,
+      "resource_weight": 0.5,
+      "physical_cost_in_objective": true,
+      "cold_start": true,
+      "mip_start_mode": "none",
+      "external_mip_start_used": false,
+      "solver_threads": 1,
+      "solver_seed": 0,
+      "mip_gap": 0.0,
+      "mip_gap_abs": 0.0,
+      "gurobi_time_limit_seconds": null,
+      "hard_time_limit_enabled": false,
+      "source_exact_anchor_reference": "results/frozen/direct_ilp_acceptance_cold_s20_s30_d047966/",
+      "source_exact_anchor_raw": "formal_outputs/direct_ilp_acceptance_cold_s20_s30_v3_d047966/",
+      "paired_non_ilp_reference": "outputs/merged_formal_v3_480_dwcg_saginfe_pro_970415f/",
+      "recommended_output_dir_pattern": "formal_outputs/direct_ilp_full_objective_cold_s30_low_seed0_v3_<prep-commit-short>"
+    }
+  }
+}

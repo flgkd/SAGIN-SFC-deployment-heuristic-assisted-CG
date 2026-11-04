@@ -1,0 +1,94 @@
+{
+  "name": "formal_same_flow_temporal_control_hfp_extension_v3",
+  "description": "Additive V3 Same-flow Temporal Control HFP extension: DWCG-SAGINFE on S40 Medium Balanced T8/T10/T12 using canonical T12 topology prefixes and fixed T6 complete flow bundle. T6 HFP is reuse-only from frozen Temporal Scalability.",
+  "version": "v3",
+  "plan_kind": "formal_same_flow_temporal_control",
+  "smoke": false,
+  "integration_only": false,
+  "provisional_limits": false,
+  "include_in_core_ranking": false,
+  "scenario": {
+    "scales": ["S40"],
+    "time_slots": 8,
+    "time_slot_values": [8, 10, 12],
+    "dynamic_topology": true,
+    "formal_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "traffic_profile": "Candidate",
+    "sfc_profile": "Candidate",
+    "deadline_profile": "Balanced",
+    "flow_policy": "same_complete_T6_flow_bundle_across_T",
+    "scale_flow_counts": {
+      "S40": 160
+    },
+    "loads": [
+      {"label": "Medium", "demand_multiplier": 0.6}
+    ],
+    "algorithms": [
+      {
+        "algorithm": "dwcg_saginfe",
+        "enabled": true,
+        "display_name": "DWCG-SAGINFE",
+        "time_limit": null,
+        "threads": 1,
+        "mip_gap": 0.0,
+        "use_saginfe_initialization": true,
+        "deterministic_mode": true,
+        "pricing_worker_count": 1,
+        "max_cg_iterations": 12,
+        "max_exact_pricing_calls_by_scale": {
+          "S20": 1040,
+          "S30": 1560,
+          "S40": 2080,
+          "S50": 2600
+        },
+        "disable_hard_time_limit": true,
+        "hard_time_limit_seconds": null,
+        "final_rmp_reserve_seconds": 300.0,
+        "final_rmp_time_cap_seconds": 300.0
+      }
+    ],
+    "output_settings": {
+      "extension_kind": "same_flow_temporal_control_hfp_extension_v3",
+      "additive_to_frozen_package": "results/frozen/same_flow_temporal_control_v3/",
+      "base_scientific_tag": "same-flow-temporal-control-v3-final",
+      "base_scientific_tag_resolved_commit": "7065fea15f36a652c40dbb5a8c544ff1d99a8097",
+      "base_authoritative_seed_level": "outputs/same_flow_temporal_control_v3_120_281f5f7/same_flow_temporal_control_seed_level.csv",
+      "hfp_t6_reuse_only": true,
+      "hfp_t6_reuse_source_tag": "temporal-scalability-v3-final",
+      "hfp_t6_reuse_source_commit": "78d6e3343ac739eb3e06228b53b48a4d72f56b3a",
+      "hfp_t6_reuse_source_path": "outputs/temporal_scalability_v3_160_0caacc9/temporal_scalability_runs.jsonl",
+      "hfp_t6_reuse_source_lines": [2, 6, 10, 14, 18, 22, 26, 30, 34, 38],
+      "expected_new_formal_rows": 30,
+      "expected_reused_t6_rows": 10,
+      "expected_future_extension_rows": 40,
+      "expected_future_four_algorithm_total_rows": 160,
+      "new_time_slots": [8, 10, 12],
+      "reused_time_slots": [6],
+      "strict_same_flow_temporal_control": true,
+      "topology_anchor_time_slots": 12,
+      "flow_anchor_time_slots": 6,
+      "supported_time_slots": [6, 8, 10, 12],
+      "request_windows_fixed_across_time_slots": true,
+      "arrival_deadline_remapping_after_T6": false,
+      "ordinary_temporal_scalability_builder_allowed": false,
+      "recommended_output_dir_pattern": "formal_outputs/same_flow_temporal_control_hfp_extension_v3_<short_commit>",
+      "recommended_merged_output_dir_pattern": "outputs/same_flow_temporal_control_v3_160_hfp_extension_<short_commit>",
+      "parallel_pricing_enabled": false,
+      "pricing_worker_count": 1,
+      "solver_threads": 1,
+      "max_cg_iterations": 12,
+      "max_exact_pricing_calls_by_scale": {
+        "S20": 1040,
+        "S30": 1560,
+        "S40": 2080,
+        "S50": 2600
+      },
+      "disable_hard_time_limit": true,
+      "configured_e2e_hard_limit_seconds": null,
+      "final_rmp_reserve_seconds": 300.0,
+      "final_rmp_time_cap_seconds": 300.0,
+      "pilot_records_admissible_as_formal_evidence": true,
+      "v2_experimental_data_used": 0
+    }
+  }
+}
