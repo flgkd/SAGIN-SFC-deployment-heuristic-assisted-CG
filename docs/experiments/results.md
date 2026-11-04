@@ -3,7 +3,7 @@
 
 [Protocol](README.md) · [Model](../model/README.md) · [Algorithms](../algorithms/README.md)
 
-This page presents the results reported in the manuscript and the selected final supplementary packages. Numerical summaries refer to those figures and their stated comparison sets. Original PDFs and high-resolution PNG previews are preserved. Source paths and original PDF hashes are recorded in the [source manifest](../source-manifest.json).
+This page presents the results reported in the manuscript and the selected final supplementary packages. Numerical summaries refer to those figures and their stated comparison sets. Original PDFs and high-resolution PNG previews are preserved. Current repository paths and file hashes for the listed assets are recorded in the [source manifest](../source-manifest.json).
 
 Pure denotes DWCG-Pure, HFP denotes DWCG-SAGINFE, and PRO denotes DWCG-SAGINFE-PRO. Figures use $|R|$ consistently for request count.
 

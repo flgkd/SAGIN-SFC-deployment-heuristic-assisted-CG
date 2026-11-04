@@ -837,9 +837,7 @@ class GBSolver:
                 "total_columns": len(self.pool),
                 "runtime": duration,
             })
-            # Historical serialized phase label for PFE-based heuristic pricing.
-            # Keep it stable for existing run-record consumers.
-            if phase_name != "SGFE heuristic" and not self.stats.get("pricing_phase_incomplete"):
+            if phase_name != "PFE heuristic" and not self.stats.get("pricing_phase_incomplete"):
                 if stop_early:
                     self.stats["early_stop_positive_column_count"] += added_count
                 else:
@@ -855,7 +853,7 @@ class GBSolver:
             new_paths = 0
             phase_added_flow_ids = set()
             last_phase_added_flow_ids = set()
-            is_exact_phase = phase_name != "SGFE heuristic"
+            is_exact_phase = phase_name != "PFE heuristic"
             exact_iteration_stats = None
             if is_exact_phase and not stop_early:
                 exact_iteration_stats = {
@@ -1388,7 +1386,7 @@ class GBSolver:
                             mark_pricing_incomplete("CG phase deadline reached before heuristic pricing.")
                             break
                         heuristic_added = run_pricing_phase(
-                            heuristic_sp_func, duals, True, False, "SGFE heuristic"
+                            heuristic_sp_func, duals, True, False, "PFE heuristic"
                         )
                         new_paths_this_iter += heuristic_added
                         if self.stats["pricing_phase_incomplete"]:

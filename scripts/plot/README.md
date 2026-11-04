@@ -20,4 +20,4 @@ The input directory is read-only; output must be outside it. No optimization is 
 
 `historical/` contains the specialized drawing and aggregation routines for main scaling, split ILP references, component ablations, deadline sensitivity, operational horizon, fixed-request control, pricing tradeoffs and parallel pricing. Algorithm labels follow the shared [naming definitions](../../algorithm_names.py). These sources retain campaign-specific joins and input layouts; use the supplementary command above for its seven supported figures. Other layouts require the corresponding original numerical inputs and explicit path adaptation before execution.
 
-The [source manifest](../../docs/source-manifest.json) retains input fingerprints for the companion's imported sources. Git records subsequent revisions. No per-seed tables, JSONL records, solver logs or caches are included.
+The [source manifest](../../docs/source-manifest.json) records current-file SHA-256 hashes for its listed repository paths. It verifies those files, not historical numerical inputs; Git records revisions. No per-seed tables, JSONL records, solver logs or caches are included.

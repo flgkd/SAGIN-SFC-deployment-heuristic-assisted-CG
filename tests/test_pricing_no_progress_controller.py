@@ -143,6 +143,81 @@ class PricingNoProgressControllerTest(unittest.TestCase):
         self.assertEqual(solver.stats["cg_status"], "POSITIVE_COLUMN_EXTRACTION_FAILED")
         self.assertEqual(solver.stats["no_progress_termination_count"], 1)
 
+    def test_pfe_success_is_heuristic_in_history_counters_and_certification(self):
+        from formal_runner import _primary_pricing_phases
+
+        network, flow, solver = self._solver()
+        exact_calls = []
+
+        def heuristic(*args, **kwargs):
+            # Even optimistic callback metadata must not certify a heuristic phase.
+            return 1.0, {"candidate": 1.0}, {"candidate": 1.0}, _positive_metadata()
+
+        def exact(*args, **kwargs):
+            exact_calls.append(1)
+            return None, None, None, _no_positive_metadata()
+
+        def extract(flow_obj, network_obj, y_res, z_res, path_id, objective_spec=None):
+            return valid_repeated_path(network, flow, path_id)
+
+        with patch("main_solver.solve_rmp", _fake_solve_rmp), patch("main_solver.extract_path_from_sp", extract):
+            solver.solve(use_parallel=False, sp_strategy="heuristic_then_exact",
+                         heuristic_sp_func=heuristic, exact_sp_func=exact, max_iterations=1)
+
+        self.assertEqual(exact_calls, [])
+        self.assertEqual(solver.stats["columns_added_by_phase"], {"PFE heuristic": 1})
+        history = solver.stats["pricing_phase_history"]
+        self.assertEqual([p["phase"] for p in history], ["PFE heuristic"])
+        self.assertEqual(history[0]["columns_added"], 1)
+        self.assertEqual(_primary_pricing_phases(history), [])
+        self.assertEqual(solver.stats["exact_pricing_budget_used"], 0)
+        self.assertEqual(solver.stats["heuristic_sp_calls"], 1)
+        self.assertEqual(solver.stats["exact_sp_calls"], 0)
+        self.assertEqual(solver.stats["exact_pricing_optimal_calls"], 0)
+        self.assertEqual(solver.stats["strict_exact_positive_column_count"], 0)
+        self.assertEqual(solver.stats["early_stop_positive_column_count"], 0)
+        self.assertEqual(solver.stats["pricing_iteration_stats"], [])
+        self.assertFalse(solver.stats["pricing_convergence_certified"])
+
+    def test_pfe_miss_falls_back_and_only_exact_phase_can_certify(self):
+        from formal_runner import _primary_pricing_phases
+
+        for certified in (False, True):
+            with self.subTest(exact_certified=certified):
+                _, _, solver = self._solver()
+                calls = []
+
+                def heuristic(*args, **kwargs):
+                    calls.append("heuristic")
+                    return None, None, None
+
+                def exact(*args, **kwargs):
+                    calls.append("exact")
+                    metadata = _no_positive_metadata()
+                    metadata["exact_pricing_optimal"] = certified
+                    metadata["hit_time_limit"] = not certified
+                    return None, None, None, metadata
+
+                with patch("main_solver.solve_rmp", _fake_solve_rmp):
+                    solver.solve(use_parallel=False, sp_strategy="heuristic_then_exact",
+                                 heuristic_sp_func=heuristic, exact_sp_func=exact, max_iterations=2)
+
+                rounds = 1 if certified else 2
+                self.assertEqual(calls, ["heuristic", "exact"] * rounds)
+                history = solver.stats["pricing_phase_history"]
+                self.assertEqual([p["phase"] for p in history],
+                                 ["PFE heuristic", "Exact Gurobi fallback"] * rounds)
+                self.assertEqual(solver.stats["columns_added_by_phase"],
+                                 {"PFE heuristic": 0, "Exact Gurobi fallback": 0})
+                self.assertEqual(_primary_pricing_phases(history), history[1::2])
+                self.assertEqual(solver.stats["exact_pricing_budget_used"], rounds)
+                self.assertEqual(solver.stats["heuristic_miss_count"], rounds)
+                self.assertEqual(len(solver.stats["pricing_iteration_stats"]), rounds)
+                self.assertEqual(solver.stats["pricing_convergence_certified"], certified)
+                self.assertEqual(solver.stats["heuristic_sp_calls"], rounds)
+                self.assertEqual(solver.stats["exact_sp_calls"], rounds)
+                self.assertEqual(solver.stats["exact_pricing_time_limit_calls"], 0 if certified else rounds)
+
 
 if __name__ == "__main__":
     unittest.main()
