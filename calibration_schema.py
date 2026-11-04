@@ -1,4 +1,4 @@
-﻿"""Schema for v2 calibration plans and records.
+﻿"""Schema for calibration plans and records.
 
 Calibration identifies resource-pressure regimes. It must not tune parameters
 to make any solver slow or favorable. Runtime is a diagnostic, not a regime

@@ -1,4 +1,4 @@
-"""Small result and certification structures for v2 solvers."""
+"""Small result and certification structures for solvers."""
 
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
@@ -91,7 +91,7 @@ def evaluate_exact_pricing_certification(
     positive_column_rejected: bool = False,
     rejection_reasons=None,
 ) -> PricingIterationStats:
-    """Return ``stats`` with the Phase 1B exact-pricing certificate evaluated."""
+    """Return ``stats`` with the exact-pricing certificate evaluated."""
     reasons = []
     if stats.expected_exact_calls != num_flows:
         reasons.append("expected exact calls did not match number of flows")

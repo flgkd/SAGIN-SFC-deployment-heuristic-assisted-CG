@@ -65,13 +65,13 @@ Adapter after construction:
     validate paths and aggregate capacities; calculate objective
 ```
 
-Success is tested against `None`, not dictionary truthiness; a valid result must not be rejected merely because a representation is empty. The construction's resource checks establish feasibility incrementally, and the adapter performs explicit validation before using the results. In [sgfe_solver.py](../../sgfe_solver.py), `sgfe` is the SAGINFE entry point and `pfe` is its request constructor. [formal_runner.py](../../formal_runner.py) performs the standalone evaluation and initialization plumbing.
+Success is tested against `None`, not dictionary truthiness; a valid result must not be rejected merely because a representation is empty. The construction's resource checks establish feasibility incrementally, and the adapter performs explicit validation before using the results. In [saginfe_solver.py](../../saginfe_solver.py), `saginfe` is the SAGINFE entry point and `pfe` is its request constructor. [formal_runner.py](../../formal_runner.py) performs the standalone evaluation and initialization plumbing.
 
 ### 2.2 Standalone output and initial columns
 
 As a standalone heuristic, SAGINFE returns its admitted set and complete deployments. Its objective is evaluated from actual resource usage, not from PFE's accumulated score. Rejection means this construction did not find a feasible extension against its current residual state; it does not establish that the original request is infeasible under a different allocation or order.
 
-For column-generation initialization, `build_sgfe_initial_paths_from_results` converts accepted deployments without rerunning construction. Rejected requests receive no admitted initial column, but retain their rejection column. Selecting the SAGINFE column for each accepted request and rejection for the rest reproduces a jointly feasible integer master solution. The pool can subsequently contain mutually conflicting alternatives, because feasibility is then coordinated through master selection rather than sequential commitment.
+For column-generation initialization, `build_saginfe_initial_paths_from_results` converts accepted deployments without rerunning construction. Rejected requests receive no admitted initial column, but retain their rejection column. Selecting the SAGINFE column for each accepted request and rejection for the rest reproduces a jointly feasible integer master solution. The pool can subsequently contain mutually conflicting alternatives, because feasibility is then coordinated through master selection rather than sequential commitment.
 
 ## 3. PFE: stage-wise request embedding
 
@@ -213,7 +213,7 @@ There is a code-level qualification to the stated manuscript bound: inside `pfe`
 O\!\left((|V_r|+1) \left[n_T(n_T+m_T)\log(1+n_T)+n_T^3\right]\right). \qquad \text{(9)}
 ```
 
-This is an implementation overhead qualification, not an experimental runtime claim or a change to the algorithm. The manuscript's derivation accounts for searches and retained-record copies but does not explicitly account for these repeated intermediate route reconstructions. It merits author review if (8) is presented as a strict bound for this exact code. See [sgfe_solver.py](../../sgfe_solver.py), `pfe`, `_reconstruct_path`, and `_traceback`, and the [PFE illustration](../../figures/paper/PFE_illustration.pdf).
+This is an implementation overhead qualification, not an experimental runtime claim or a change to the algorithm. The manuscript's derivation accounts for searches and retained-record copies but does not explicitly account for these repeated intermediate route reconstructions. It merits author review if (8) is presented as a strict bound for this exact code. See [saginfe_solver.py](../../saginfe_solver.py), `pfe`, `_reconstruct_path`, and `_traceback`, and the [PFE illustration](../../figures/paper/PFE_illustration.pdf).
 
 ## 4. Column generation and master coordination
 
@@ -307,7 +307,7 @@ Hybrid switching concerns rounds, not an individual solver call's elapsed time o
 
 ### 5.3 Heuristic-first pricing and fallback
 
-HP and HFP call `solve_sp_with_sgfe` serially across requests under the current dual state. Each call runs PFE from original capacities, converts the deployment to pricing-compatible stage and arc records, and evaluates the current reduced cost. It does not start from SAGINFE's depleted residual network.
+HP and HFP call `solve_sp_with_pfe` serially across requests under the current dual state. Each call runs PFE from original capacities, converts the deployment to pricing-compatible stage and arc records, and evaluates the current reduced cost. It does not start from SAGINFE's depleted residual network.
 
 The coordinator's default fallback rule is **phase-wide**: if the whole heuristic phase adds no columns, it invokes strict solver pricing for the requests. It is not an immediate per-request exact solve whenever one PFE call fails. If the heuristic phase adds columns, the default moves on to another master round. The optional `run_exact_after_heuristic_success` flag can request solver pricing even after heuristic success; its default is false. `heuristic_disable_after_misses` can disable heuristic phases after consecutive misses; the default is unset. These switches are implementation capabilities, not additional mechanisms silently enabled in every published configuration.
 
@@ -388,9 +388,9 @@ The code explicitly keeps `global_original_integer_optimal=False` for finite-poo
 
 | Component | Responsibility | Main entry points |
 |---|---|---|
-| SAGINFE | Stable request order and shared residual commitment | [sgfe_solver.py](../../sgfe_solver.py): `sgfe` |
-| PFE | Stage candidates, predecessor scores, directed shortest paths, capacity states, traceback | [sgfe_solver.py](../../sgfe_solver.py): `pfe`, `dijkstra_from`, `_comp_ratio_cost`, `_build_edge_ratio_costs`, `_traceback` |
-| Initial and heuristic pricing columns | Encode embeddings, calculate physical cost, verify pricing reduced cost | [sgfe_solver.py](../../sgfe_solver.py): `build_sgfe_initial_paths_from_results`, `embedding_to_initial_path_dict`, `solve_sp_with_sgfe` |
+| SAGINFE | Stable request order and shared residual commitment | [saginfe_solver.py](../../saginfe_solver.py): `saginfe` |
+| PFE | Stage candidates, predecessor scores, directed shortest paths, capacity states, traceback | [saginfe_solver.py](../../saginfe_solver.py): `pfe`, `dijkstra_from`, `_comp_ratio_cost`, `_build_edge_ratio_costs`, `_traceback` |
+| Initial and heuristic pricing columns | Encode embeddings, calculate physical cost, verify pricing reduced cost | [saginfe_solver.py](../../saginfe_solver.py): `build_saginfe_initial_paths_from_results`, `embedding_to_initial_path_dict`, `solve_sp_with_pfe` |
 | Column identity | Usage aggregation, canonical stage/segment signatures, duplicate rejection | [data_model.py](../../data_model.py): `Path`; [column_pool.py](../../column_pool.py): `ColumnPool.add_path` |
 | LP/integer master | Shared resource rows, column weights, row dual extraction, integer incumbent | [restricted_master_problem.py](../../restricted_master_problem.py): `solve_rmp` |
 | Pricing MIP and route extraction | Dual-adjusted single-request optimization and complete ordered routes | [sub_problem.py](../../sub_problem.py): `solve_sp_detailed`, `extract_path_from_sp` |

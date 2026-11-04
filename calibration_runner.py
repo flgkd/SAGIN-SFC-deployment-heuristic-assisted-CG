@@ -1,4 +1,4 @@
-﻿"""Calibration execution framework for V3 SAGIN instances.
+﻿"""Calibration execution framework for SAGIN instances.
 
 This module builds calibration instances, verifies paired-load structure, and
 records standardized run records. It does not freeze candidate parameters.
@@ -40,7 +40,7 @@ from config_schema import (
 from instance_builder import SaginInstance, build_instance
 from objective import ObjectiveSpec, compute_path_physical_cost, objective_spec_from_network
 from data_model import Path as SfcPath
-from sgfe_solver import sgfe
+from saginfe_solver import saginfe
 from validation import validate_path, validate_solution_capacity
 
 
@@ -351,7 +351,7 @@ def run_saginfe_adapter(instance: SaginInstance, solver_config: SolverCalibratio
     timestamp = utc_now()
     key = context["key"]
     try:
-        results = sgfe(instance.network, list(instance.flows), instance.network.nodes, instance.network.nodes, verbose=solver_config.verbose)
+        results = saginfe(instance.network, list(instance.flows), instance.network.nodes, instance.network.nodes, verbose=solver_config.verbose)
         selected = {}
         normalized_cost = 0.0
         objective_spec: ObjectiveSpec = objective_spec_from_network(instance.network)
@@ -399,7 +399,7 @@ def run_saginfe_adapter(instance: SaginInstance, solver_config: SolverCalibratio
                 "path_validation_result": path_validation_ok,
                 "capacity_validation_result": capacity_ok,
                 "internal_statistics": None,
-                "unavailable_statistics_reason": "SGFE exposes embeddings but no branch-and-bound statistics.",
+                "unavailable_statistics_reason": "SAGINFE exposes embeddings but no branch-and-bound statistics.",
             },
         )
     except Exception as exc:

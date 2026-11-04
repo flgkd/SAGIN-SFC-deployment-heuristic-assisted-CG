@@ -1,4 +1,4 @@
-﻿"""Command-line entry point for V3 calibration runs."""
+﻿"""Command-line entry point for calibration runs."""
 
 import argparse
 import json
@@ -14,7 +14,7 @@ def load_plan(path: Path):
 
 
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description="Run V3 calibration framework.")
+    parser = argparse.ArgumentParser(description="Run calibration framework.")
     parser.add_argument("--plan", required=True, help="Path to calibration plan JSON.")
     parser.add_argument("--mode", choices=("smoke", "full"), required=True)
     parser.add_argument("--output", required=True, help="Output run directory.")

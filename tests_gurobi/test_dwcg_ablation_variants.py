@@ -68,7 +68,7 @@ class DwcgAblationVariantsGurobiTest(unittest.TestCase):
                 "key": key,
                 "git_commit": "",
                 "configuration_snapshot": {"algorithm": config.algorithm},
-                "sgfe_cache": {},
+                "saginfe_cache": {},
             }
             with self.subTest(algorithm=config.algorithm):
                 record = run_dwcg_formal_adapter(instance, config, context)

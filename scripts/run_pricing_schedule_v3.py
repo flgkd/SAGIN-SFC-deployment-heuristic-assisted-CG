@@ -219,7 +219,7 @@ def main(argv: Iterable[str] | None = None) -> int:
                 "algorithm": algorithm,
             }),
             "pricing_schedule": variant_label(str(algorithm.variant_id)),
-            "sgfe_cache": {},
+            "saginfe_cache": {},
         }
         record = adapters[algorithm.algorithm](instance, algorithm, context)
         record_dict = record_to_dict(replace(record, integration_only=bool(config.get("integration_only"))))

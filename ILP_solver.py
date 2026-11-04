@@ -67,7 +67,7 @@ class ILPSolution:
         self.scalarized_objective = objective
         self.result = result
 
-    def as_sgfe_results(self) -> Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[List[TimeEdge]]]]:
+    def as_saginfe_results(self) -> Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[List[TimeEdge]]]]:
         results: Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[List[TimeEdge]]]] = {}
         for flow_id, is_accepted in self.accepted_flows.items():
             if is_accepted:
@@ -105,7 +105,7 @@ def solve_ilp(
     """
     Solve the original ILP directly with Gurobi.
 
-    By default, objective follows the v2 scalarized lexicographic model:
+    By default, objective follows the scalarized lexicographic model:
         max acceptance_reward * sum_r x_r - normalized_physical_resource_cost
 
     The ``acceptance_only`` objective mode preserves the same feasible region

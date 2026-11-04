@@ -1,4 +1,4 @@
-"""Complete candidate v2 SAGIN instance construction."""
+"""Complete candidate SAGIN instance construction."""
 
 from dataclasses import dataclass
 import hashlib

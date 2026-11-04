@@ -837,6 +837,8 @@ class GBSolver:
                 "total_columns": len(self.pool),
                 "runtime": duration,
             })
+            # Historical serialized phase label for PFE-based heuristic pricing.
+            # Keep it stable for existing run-record consumers.
             if phase_name != "SGFE heuristic" and not self.stats.get("pricing_phase_incomplete"):
                 if stop_early:
                     self.stats["early_stop_positive_column_count"] += added_count

@@ -1,6 +1,6 @@
-"""Controlled candidate v2 SFC flow generation.
+"""Controlled candidate SFC flow generation.
 
-The profiles in this module are synthetic candidate v2 profiles. Demands and
+The profiles in this module are synthetic candidate profiles. Demands and
 processing coefficients are normalized resource units, not operator trace data.
 """
 

@@ -203,7 +203,7 @@ def main(argv: Iterable[str] | None = None) -> int:
             "plan": temp_plan,
             "git_commit": commit,
             "configuration_snapshot": to_jsonable({"plan": config, "algorithm": algorithm}),
-            "sgfe_cache": {},
+            "saginfe_cache": {},
         }
         record = adapters[algorithm.algorithm](instance, algorithm, context)
         record = replace(

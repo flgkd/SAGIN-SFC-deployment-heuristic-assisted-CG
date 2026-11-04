@@ -1,4 +1,4 @@
-"""Solver-independent validation for v2 networks, flows, paths, and solutions."""
+"""Solver-independent validation for networks, flows, paths, and solutions."""
 
 import math
 from types import SimpleNamespace

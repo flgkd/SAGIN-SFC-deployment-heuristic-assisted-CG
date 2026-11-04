@@ -102,7 +102,8 @@
       "sha256": "239c24cfeb5a8f0c444a4cde16da50dc1a7ffc1c0894c01e64286a4d3bbf71c8"
     },
     {
-      "path": "sgfe_solver.py",
+      "path": "saginfe_solver.py",
+      "source_path": "sgfe_solver.py",
       "sha256": "61d98b2a186ead1fb810590d77bf57487596d0a9b87965f3760d965d4acaa861"
     },
     {

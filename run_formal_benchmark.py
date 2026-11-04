@@ -1,4 +1,4 @@
-﻿"""Command-line entry point for V3 formal benchmark runs."""
+﻿"""Command-line entry point for formal benchmark runs."""
 
 import argparse
 import json
@@ -14,7 +14,7 @@ def load_formal_plan(path: Path):
 
 
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description="Run V3 formal benchmark framework.")
+    parser = argparse.ArgumentParser(description="Run formal benchmark framework.")
     parser.add_argument("--plan", required=True, help="Path to formal plan JSON.")
     parser.add_argument("--output", required=True, help="Output run directory.")
     parser.add_argument("--algorithms", nargs="*", choices=FORMAL_ALGORITHMS)

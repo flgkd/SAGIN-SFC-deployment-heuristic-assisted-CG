@@ -1,7 +1,7 @@
-# sgfe_solver.py
+# saginfe_solver.py
 
 """
-sgfe_solver.py — Space-Ground Flow Embedding (SGFE) heuristic and
+saginfe_solver.py — SAGIN Flow Embedding (SAGINFE) heuristic and
           Per Flow Embedding (PFE) sub-procedure.
 
 Notation mapping (paper → code)
@@ -448,10 +448,10 @@ def pfe(
 
 
 # ============================================================
-#  Space-Ground Flow Embedding (SGFE)  — Algorithm 1
+#  SAGIN Flow Embedding (SAGINFE)  — Algorithm 1
 # ============================================================
 
-def sgfe(
+def saginfe(
     network: Network,
     flows: List[Flow],
     vnf_host_nodes: List[Node],
@@ -459,7 +459,7 @@ def sgfe(
     verbose: bool = True,
 ) -> Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[Dict[int, List[TimeEdge]]]]]:
     """
-    Space-Ground Flow Embedding (SGFE) — Algorithm 1.
+    SAGIN Flow Embedding (SAGINFE) — Algorithm 1.
 
     Embeds all flows one by one via PFE, sharing a single residual-capacity
     state updated after each accepted flow.
@@ -512,14 +512,14 @@ def _path_physical_cost(
     return compute_path_physical_cost(network, flow, path, objective_spec)
 
 
-def build_initial_paths_from_sgfe(
+def build_initial_paths_from_saginfe(
     network: Network,
     flows: List[Flow],
-    sgfe_results: Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[Dict[int, List[TimeEdge]]]]],
+    saginfe_results: Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[Dict[int, List[TimeEdge]]]]],
     objective_spec: Optional[ObjectiveSpec] = None,
 ) -> List[Dict]:
     """
-    Convert SGFE embeddings to the custom initial path format accepted by GBSolver.
+    Convert SAGINFE embeddings to the custom initial path format accepted by GBSolver.
 
     Rejected flows are skipped; the artificial empty paths in GBSolver still cover
     those flows and keep the RMP initially feasible.
@@ -527,7 +527,7 @@ def build_initial_paths_from_sgfe(
     flow_by_id = {flow.flow_id: flow for flow in flows}
     initial_paths: List[Dict] = []
 
-    for flow_id, (eta, phi) in sgfe_results.items():
+    for flow_id, (eta, phi) in saginfe_results.items():
         if eta is None or phi is None:
             continue
 
@@ -539,18 +539,18 @@ def build_initial_paths_from_sgfe(
     return initial_paths
 
 
-def build_sgfe_initial_paths_from_results(
+def build_saginfe_initial_paths_from_results(
     network: Network,
     flows: List[Flow],
-    sgfe_results: Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[Dict[int, List[TimeEdge]]]]],
+    saginfe_results: Dict[int, Tuple[Optional[Dict[int, TimeNode]], Optional[Dict[int, List[TimeEdge]]]]],
     objective_spec: Optional[ObjectiveSpec] = None,
 ) -> List[Dict]:
     """
-    Build GBSolver warm-start columns from already computed SGFE results.
+    Build GBSolver warm-start columns from already computed SAGINFE results.
 
-    This avoids re-running SGFE when an experiment has already evaluated it.
+    This avoids re-running SAGINFE when an experiment has already evaluated it.
     """
-    return build_initial_paths_from_sgfe(network, flows, sgfe_results, objective_spec)
+    return build_initial_paths_from_saginfe(network, flows, saginfe_results, objective_spec)
 
 
 def embedding_to_initial_path_dict(
@@ -561,7 +561,7 @@ def embedding_to_initial_path_dict(
     objective_spec: Optional[ObjectiveSpec] = None,
 ) -> Dict:
     """
-    Convert one accepted SGFE/PFE embedding into GBSolver custom_initial_paths format.
+    Convert one accepted SAGINFE/PFE embedding into GBSolver custom_initial_paths format.
 
     Only actual processing VNFs are retained in the placement dictionary. SRC/DST
     have zero resource cost and are represented implicitly by the flow metadata.
@@ -580,7 +580,7 @@ def embedding_to_initial_path_dict(
     }
 
 
-def build_sgfe_initial_paths(
+def build_saginfe_initial_paths(
     network: Network,
     flows: List[Flow],
     vnf_host_nodes: Optional[List[Node]] = None,
@@ -588,7 +588,7 @@ def build_sgfe_initial_paths(
     objective_spec: Optional[ObjectiveSpec] = None,
 ) -> List[Dict]:
     """
-    Run SGFE and return accepted embeddings as GBSolver warm-start columns.
+    Run SAGINFE and return accepted embeddings as GBSolver warm-start columns.
 
     Rejected flows are skipped. Empty paths should still be created by GBSolver
     to keep every flow covered in the RMP.
@@ -598,14 +598,14 @@ def build_sgfe_initial_paths(
     if dst_candidate_nodes is None:
         dst_candidate_nodes = network.nodes
 
-    sgfe_results = sgfe(
+    saginfe_results = saginfe(
         network=network,
         flows=flows,
         vnf_host_nodes=vnf_host_nodes,
         dst_candidate_nodes=dst_candidate_nodes,
         verbose=False,
     )
-    return build_sgfe_initial_paths_from_results(network, flows, sgfe_results, objective_spec)
+    return build_saginfe_initial_paths_from_results(network, flows, saginfe_results, objective_spec)
 
 
 def _embedding_to_sp_results(
@@ -680,7 +680,7 @@ def _reduced_cost_from_sp_results(
     )
 
 
-def solve_sp_with_sgfe(
+def solve_sp_with_pfe(
     flow: Flow,
     network: Network,
     duals: Dict,
@@ -688,7 +688,7 @@ def solve_sp_with_sgfe(
     stop_early=False,
 ):
     """
-    SGFE/PFE-compatible pricing callback for GBSolver.custom_sp_func.
+    PFE-based pricing callback for GBSolver.custom_sp_func.
 
     The PFE deployment is converted to the same sparse y/z dictionaries used by
     the exact Gurobi subproblem. A column is returned only if its reduced cost is

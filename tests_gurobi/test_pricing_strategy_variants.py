@@ -45,7 +45,7 @@ class PricingStrategyVariantsGurobiTest(unittest.TestCase):
                     "key": key,
                     "git_commit": "",
                     "configuration_snapshot": {"algorithm": config.algorithm, "variant_id": config.variant_id},
-                    "sgfe_cache": {},
+                    "saginfe_cache": {},
                 },
             )
             self.assertIsNone(record.error_type, record.error_message)
@@ -85,7 +85,7 @@ class PricingStrategyVariantsGurobiTest(unittest.TestCase):
                 "key": FormalRunKey("tiny", "TINY", 2, 0, "Tiny", 1.0, "dwcg_pure", "EX"),
                 "git_commit": "",
                 "configuration_snapshot": {"algorithm": "dwcg_pure", "variant_id": "EX"},
-                "sgfe_cache": {},
+                "saginfe_cache": {},
             },
         )
         self.assertEqual(

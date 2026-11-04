@@ -1,4 +1,4 @@
-"""Structured candidate SAGIN topology generator for v2.
+"""Structured candidate SAGIN topology generator.
 
 This module builds a sparse undirected physical SAGIN graph and expands each
 realized snapshot into the existing ``data_model.Network`` time-expanded graph.

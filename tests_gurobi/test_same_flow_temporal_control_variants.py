@@ -101,7 +101,7 @@ class SameFlowTemporalControlGurobiTest(unittest.TestCase):
                     "key": key,
                     "git_commit": "",
                     "configuration_snapshot": {"algorithm": algorithm},
-                    "sgfe_cache": {},
+                    "saginfe_cache": {},
                 }
                 record = (
                     run_saginfe_formal_adapter(instance, config, context)

@@ -7,7 +7,7 @@ from config_schema import FlowGenerationConfig, InstanceConfig, TopologyConfig, 
 from data_model import Path
 from instance_builder import build_instance
 from objective import compute_path_physical_cost, objective_spec_from_network
-from sgfe_solver import sgfe, build_sgfe_initial_paths_from_results
+from saginfe_solver import saginfe, build_saginfe_initial_paths_from_results
 from validation import validate_instance, validate_path, validate_solution_capacity
 
 
@@ -20,8 +20,8 @@ def main():
     instance = build_instance(config)
     validate_instance(instance, config)
     network, flows = instance.network, list(instance.flows)
-    embeddings = sgfe(network, flows, network.nodes, network.nodes, verbose=False)
-    columns = build_sgfe_initial_paths_from_results(network, flows, embeddings)
+    embeddings = saginfe(network, flows, network.nodes, network.nodes, verbose=False)
+    columns = build_saginfe_initial_paths_from_results(network, flows, embeddings)
     selected = {}
     by_id = {flow.flow_id: flow for flow in flows}
     for index, column in enumerate(columns):

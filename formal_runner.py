@@ -1,6 +1,6 @@
-﻿"""Formal benchmark runner for V3 experiments.
+﻿"""Formal benchmark runner for SAGIN experiments.
 
-The runner reuses the Phase 2 instance builder and existing solver
+The runner reuses the shared instance builder and existing solver
 implementations. It does not run automatically; CLI users choose smoke or
 formal plans explicitly.
 """
@@ -56,7 +56,7 @@ from dwcg_saginfe_pro import (
 )
 from instance_builder import SaginInstance, build_instance
 from objective import ObjectiveSpec, compute_path_physical_cost, objective_spec_from_network
-from sgfe_solver import build_sgfe_initial_paths_from_results, sgfe
+from saginfe_solver import build_saginfe_initial_paths_from_results, saginfe
 from validation import validate_path, validate_solution_capacity
 from deterministic_seeds import seed_bundle
 from record_compatibility import algorithm_seed_namespace, normalize_record
@@ -660,7 +660,7 @@ def run_formal_plan(
     } if resume else {}
     completed = []
     instance_cache: Dict[Tuple[str, int, str], SaginInstance] = {}
-    sgfe_cache: Dict[str, Dict[int, SfcPath]] = {}
+    saginfe_cache: Dict[str, Dict[int, SfcPath]] = {}
 
     for scale, seed, load, algorithm_config in matrix:
         instance_key = (scale, seed, load.label)
@@ -688,7 +688,7 @@ def run_formal_plan(
             "plan": plan,
             "git_commit": commit,
             "configuration_snapshot": to_jsonable({"plan": plan, "algorithm": algorithm_config}),
-            "sgfe_cache": sgfe_cache,
+            "saginfe_cache": saginfe_cache,
         }
         record = adapter_map[algorithm_config.algorithm](instance, algorithm_config, context)
         record = replace(
@@ -724,7 +724,7 @@ def default_adapters() -> Dict[str, FormalAdapter]:
     }
 
 
-def _build_paths_from_sgfe(instance: SaginInstance, results) -> Dict[int, SfcPath]:
+def _build_paths_from_saginfe(instance: SaginInstance, results) -> Dict[int, SfcPath]:
     selected = {}
     objective_spec: ObjectiveSpec = objective_spec_from_network(instance.network)
     for flow in instance.flows:
@@ -806,8 +806,8 @@ def derive_formal_algorithm_seed_bundle(instance: SaginInstance, key: FormalRunK
 
 def _compute_saginfe_initialization(instance: SaginInstance, verbose: bool = False) -> Dict[str, Any]:
     start = time.perf_counter()
-    results = sgfe(instance.network, list(instance.flows), instance.network.nodes, instance.network.nodes, verbose=verbose)
-    paths = _build_paths_from_sgfe(instance, results)
+    results = saginfe(instance.network, list(instance.flows), instance.network.nodes, instance.network.nodes, verbose=verbose)
+    paths = _build_paths_from_saginfe(instance, results)
     return {
         "paths": paths,
         "generation_runtime_seconds": time.perf_counter() - start,
@@ -829,7 +829,7 @@ def _get_or_run_saginfe_initialization(
             "cache_reused": False,
         }
     key = context["key"].scenario_id
-    cache = context.setdefault("sgfe_cache", {})
+    cache = context.setdefault("saginfe_cache", {})
     if key not in cache:
         cache[key] = _compute_saginfe_initialization(instance, verbose=verbose)
         reused = False
@@ -1287,7 +1287,7 @@ def run_dwcg_formal_adapter(instance: SaginInstance, algorithm_config: FormalAlg
     start = time.perf_counter()
     try:
         from main_solver import GBSolver
-        from sgfe_solver import build_sgfe_initial_paths_from_results, solve_sp_with_sgfe
+        from saginfe_solver import build_saginfe_initial_paths_from_results, solve_sp_with_pfe
 
         algorithm_seed_bundle = derive_formal_algorithm_seed_bundle(instance, context["key"], algorithm_config)
         algorithm_seed = algorithm_seed_bundle["c_long_seed"]
@@ -1302,22 +1302,22 @@ def run_dwcg_formal_adapter(instance: SaginInstance, algorithm_config: FormalAlg
                 verbose=False,
                 allow_solution_cache=False,
             )
-            sgfe_paths = initialization["paths"]
-            sgfe_results = {
+            saginfe_paths = initialization["paths"]
+            saginfe_results = {
                 flow_id: (path.path_stage_placement, path.path_segment_routing)
-                for flow_id, path in sgfe_paths.items()
+                for flow_id, path in saginfe_paths.items()
             }
-            custom_initial_paths = build_sgfe_initial_paths_from_results(
+            custom_initial_paths = build_saginfe_initial_paths_from_results(
                 instance.network,
                 list(instance.flows),
-                sgfe_results,
+                saginfe_results,
                 objective_spec_from_network(instance.network),
             )
             initialization_generation_runtime = initialization["generation_runtime_seconds"]
             initial_column_pool_size += len(custom_initial_paths)
         solver = GBSolver(instance.network, list(instance.flows), objective_spec_from_network(instance.network))
         pricing_strategy = algorithm_config.resolved_pricing_strategy()
-        heuristic_func = solve_sp_with_sgfe if pricing_strategy == "heuristic_then_exact" else None
+        heuristic_func = solve_sp_with_pfe if pricing_strategy == "heuristic_then_exact" else None
         solver_sp_strategy = pricing_strategy
         hybrid_switch_iteration = algorithm_config.hybrid_switch_iteration or 5
         parallel_pricing_enabled = algorithm_config.pricing_worker_count > 1
@@ -1356,7 +1356,7 @@ def run_dwcg_formal_adapter(instance: SaginInstance, algorithm_config: FormalAlg
             max_iterations=algorithm_config.max_cg_iterations,
             max_exact_pricing_calls=exact_pricing_call_cap,
             selective_pfe_enabled=selective_pfe_enabled_for_algorithm(algorithm_config.algorithm),
-            selective_pfe_func=solve_sp_with_sgfe if selective_pfe_enabled_for_algorithm(algorithm_config.algorithm) else None,
+            selective_pfe_func=solve_sp_with_pfe if selective_pfe_enabled_for_algorithm(algorithm_config.algorithm) else None,
             initial_saginfe_accepted_flow_count=(
                 initialization["accepted_flow_count"] if initialization is not None else None
             ),

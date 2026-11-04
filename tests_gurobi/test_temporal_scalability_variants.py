@@ -77,7 +77,7 @@ def _run(instance, time_slots, algorithm):
         "key": key,
         "git_commit": "",
         "configuration_snapshot": {"algorithm": algorithm},
-        "sgfe_cache": {},
+        "saginfe_cache": {},
     }
     if algorithm == "saginfe":
         return run_saginfe_formal_adapter(instance, config, context)

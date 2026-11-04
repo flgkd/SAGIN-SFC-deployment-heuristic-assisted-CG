@@ -244,7 +244,7 @@ def main(argv: Iterable[str] | None = None) -> int:
                     "parallel_pricing_enabled": algorithm.pricing_worker_count > 1,
                 },
             }),
-            "sgfe_cache": {},
+            "saginfe_cache": {},
         }
         record = adapters[algorithm.algorithm](instance, algorithm, context)
         append_jsonl(args.output_dir / "runs.jsonl", record_to_dict(replace(record, integration_only=bool(config.get("integration_only")))))

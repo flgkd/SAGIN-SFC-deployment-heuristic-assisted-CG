@@ -42,7 +42,7 @@ class HybridSwitchVariantsGurobiTest(unittest.TestCase):
                     "key": key,
                     "git_commit": "",
                     "configuration_snapshot": {"algorithm": "dwcg_pure", "variant_id": variant_id},
-                    "sgfe_cache": {},
+                    "saginfe_cache": {},
                 },
             )
             self.assertIsNone(record.error_type, record.error_message)
@@ -67,7 +67,7 @@ class HybridSwitchVariantsGurobiTest(unittest.TestCase):
                 "key": FormalRunKey("tiny", "TINY", 2, 0, "Tiny", 1.0, "dwcg_pure", "HYB_S2"),
                 "git_commit": "",
                 "configuration_snapshot": {"algorithm": "dwcg_pure", "variant_id": "HYB_S2"},
-                "sgfe_cache": {},
+                "saginfe_cache": {},
             },
         )
         self.assertEqual(
@@ -86,7 +86,7 @@ class HybridSwitchVariantsGurobiTest(unittest.TestCase):
                 "key": key,
                 "git_commit": "",
                 "configuration_snapshot": {"algorithm": "dwcg_pure", "variant_id": "HYB_S5"},
-                "sgfe_cache": {},
+                "saginfe_cache": {},
             },
         )
         self.assertIsNone(record.error_type, record.error_message)

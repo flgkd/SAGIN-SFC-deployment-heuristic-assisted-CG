@@ -240,7 +240,7 @@ def main(argv: Iterable[str] | None = None) -> int:
                 "execution_subset": {"time_slots": time_slots},
                 "algorithm": algorithm,
             }),
-            "sgfe_cache": {},
+            "saginfe_cache": {},
         }
         record = adapters[algorithm.algorithm](instance, algorithm, context)
         record = replace(record, integration_only=False, run_category=manifest["run_category"])

@@ -41,7 +41,7 @@ class ParallelPricingVariantsGurobiTest(unittest.TestCase):
                         "key": key,
                         "git_commit": "",
                         "configuration_snapshot": {"algorithm": config.algorithm, "variant_id": config.variant_id},
-                        "sgfe_cache": {},
+                        "saginfe_cache": {},
                     },
                 )
                 self.assertIsNone(record.error_type, record.error_message)

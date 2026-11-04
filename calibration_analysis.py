@@ -1,4 +1,4 @@
-"""Analysis helpers for v2 calibration records."""
+"""Analysis helpers for calibration records."""
 
 import json
 from pathlib import Path
