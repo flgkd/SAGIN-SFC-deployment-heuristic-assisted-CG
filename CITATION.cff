@@ -1,30 +1,38 @@
 cff-version: 1.2.0
+
 message: >-
-  If you use the algorithms, implementations, or experimental results, please
-  cite the associated paper listed in references. Until an authoritative preprint
-  or publication record is available, the metadata below provides a repository citation.
+  If you use the algorithms, implementations, or experimental results
+  from this repository, please cite the associated arXiv paper
+  specified in preferred-citation.
+
 type: software
+
 title: SAGIN-SFC-deployment-heuristic-assisted-CG
+
 authors:
   - name: SAGIN-SFC-deployment-heuristic-assisted-CG contributors
-repository-code: 'https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG'
-url: 'https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG'
-# Licensing scopes and third-party exceptions are defined in LICENSE-CONTENT and README.md.
-# Paper title and author order verified against the associated manuscript.
-# No preferred-citation until an authoritative preprint or publication record is verified.
-references:
-  - type: generic
-    title: >-
-      Scalable Full-Horizon SFC Deployment over Predictable SAGIN Topologies via Configurable Column Generation Framework
-    authors:
-      - family-names: Li
-        given-names: Hang
-      - family-names: Huang
-        given-names: Hao
-      - family-names: Xu
-        given-names: Yihu
-      - family-names: Kong
-        given-names: Zixuan
-      - family-names: Jin
-        given-names: Yanling
-    notes: Associated manuscript; publication metadata has not been verified.
+
+repository-code: https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG
+
+url: https://github.com/flgkd/SAGIN-SFC-deployment-heuristic-assisted-CG
+
+preferred-citation:
+  type: generic
+  title: >-
+    Scalable Full-Horizon SFC Deployment over Predictable
+    SAGIN Topologies via Configurable Column Generation Framework
+  authors:
+    - family-names: Li
+      given-names: Hang
+    - family-names: Huang
+      given-names: Hao
+    - family-names: Xu
+      given-names: Yihu
+    - family-names: Kong
+      given-names: Zixuan
+    - family-names: Jin
+      given-names: Yanling
+  year: 2026
+  doi: 10.48550/arXiv.2611.09585
+  url: https://arxiv.org/abs/2611.09585
+  notes: "arXiv preprint, arXiv:2611.09585"
