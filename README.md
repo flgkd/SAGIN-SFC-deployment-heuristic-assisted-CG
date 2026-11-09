@@ -2,6 +2,10 @@
 
 Technical companion to **Scalable Full-Horizon SFC Deployment over Predictable SAGIN Topologies via Configurable Column Generation Framework**.
 
+**Authors:** Hang Li, Hao Huang, Yihu Xu, Zixuan Kong, and Yanling Jin.
+
+**Paper:** [arXiv:2611.09585](https://arxiv.org/abs/2611.09585) | [DOI: 10.48550/arXiv.2611.09585](https://doi.org/10.48550/arXiv.2611.09585)
+
 This research repository studies admission and ordered service function chain (SFC) deployment in a space–air–ground integrated network (SAGIN). A time-expanded graph (TEG) represents communication, computation, and waiting across a known planning horizon. Complete request deployments become columns; a master problem coordinates their competition for shared resources.
 
 The implementation connects fast SAGIN Flow Embedding (SAGINFE), stage-wise Per-Flow Embedding (PFE), Dantzig–Wolfe column generation, configurable pricing, parallel request pricing, and final integer selection over the generated pool. The objective gives admission priority and then minimizes normalized resource consumption. **Finite-pool integer optimality is not global integer optimality of the original deployment problem.**
