@@ -1,6 +1,6 @@
 # SAGIN-SFC-deployment-heuristic-assisted-CG
 
-Technical companion to **Scalable Full-Horizon SFC Deployment over Predictable SAGIN Topologies via Configurable Column Generation Framework**.
+Technical companion to **Scalable Full-Horizon SFC Deployment over Predictable SAGIN Topologies via a Configurable Column Generation Framework**.
 
 **Authors:** Hang Li, Hao Huang, Yihu Xu, Zixuan Kong, and Yanling Jin.
 
