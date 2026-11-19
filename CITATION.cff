@@ -20,7 +20,7 @@ preferred-citation:
   type: generic
   title: >-
     Scalable Full-Horizon SFC Deployment over Predictable
-    SAGIN Topologies via Configurable Column Generation Framework
+    SAGIN Topologies via a Configurable Column Generation Framework
   authors:
     - family-names: Li
       given-names: Hang
